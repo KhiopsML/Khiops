@@ -1,4 +1,2 @@
-file(GLOB cppfiles ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-add_executable(genum ${cppfiles})
-set_khiops_options(genum)
+add_executable(genum GenumCommandLine.cpp genum.cpp)
 target_link_libraries(genum PUBLIC MHHistograms)

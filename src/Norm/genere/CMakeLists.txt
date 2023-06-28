@@ -1,5 +1,21 @@
-file(GLOB cppfiles ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-
-add_executable(genere ${cppfiles})
+add_executable(
+  genere
+  Attribute.cpp
+  AttributeTable.cpp
+  GenereAttArrayViewC.cpp
+  GenereAttC.cpp
+  GenereAttH.cpp
+  GenereAttViewC.cpp
+  GenereAttViewH.cpp
+  ManagedObject.cpp
+  ManagedObjectTable.cpp
+  QueryServices.cpp
+  QueryServicesView.cpp
+  Section.cpp
+  SectionTable.cpp
+  TableGenerator.cpp
+  TableServices.cpp
+  genere.cpp
+  genereattarrayviewH.cpp)
 set_khiops_options(genere)
 target_link_libraries(genere PUBLIC base)

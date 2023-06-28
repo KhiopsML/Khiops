@@ -1,5 +1,4 @@
-file(GLOB cppfiles ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-add_executable(genumfp ${cppfiles})
+add_executable(genumfp MHCommandLine.cpp genumfp.cpp)
 
 target_link_libraries(genumfp PUBLIC MHHistograms)
 

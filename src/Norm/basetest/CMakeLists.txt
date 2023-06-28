@@ -2,8 +2,20 @@
 if(NOT MSVC)
   set_source_files_properties(main.cpp PROPERTIES COMPILE_FLAGS -fexceptions)
 endif(NOT MSVC)
-file(GLOB cppfiles ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-
-add_executable(basetest ${cppfiles})
+add_executable(
+  basetest
+  BaseTest.cpp
+  DiversTests.cpp
+  UITest.cpp
+  UITestActionSubObject.cpp
+  UITestActionSubObjectView.cpp
+  UITestClassSpec.cpp
+  UITestClassSpecArrayView.cpp
+  UITestClassSpecView.cpp
+  UITestObject.cpp
+  UITestObjectView.cpp
+  UITestSubObject.cpp
+  UITestSubObjectView.cpp
+  main.cpp)
 set_khiops_options(basetest)
 target_link_libraries(basetest PUBLIC base)

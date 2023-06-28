@@ -1,6 +1,55 @@
-file(GLOB cppfiles ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-add_library(KWDataPreparation STATIC "${cppfiles}")
+add_library(
+  KWDataPreparation STATIC
+  KDDataPreparationAttributeCreationTask.cpp
+  KWAttributePairsSpec.cpp
+  KWAttributeStats.cpp
+  KWAttributeSubsetStats.cpp
+  KWClassStats.cpp
+  KWDGMPartMergeAction.cpp
+  KWDRDataGrid.cpp
+  KWDRDataGridBlock.cpp
+  KWDRDataGridDeployment.cpp
+  KWDRPreprocessing.cpp
+  KWDRTableBlock.cpp
+  KWDRTablePartition.cpp
+  KWDataGrid.cpp
+  KWDataGridCosts.cpp
+  KWDataGridDeployment.cpp
+  KWDataGridManager.cpp
+  KWDataGridMerger.cpp
+  KWDataGridOptimizer.cpp
+  KWDataGridOptimizerParameters.cpp
+  KWDataGridPostOptimizer.cpp
+  KWDataGridStats.cpp
+  KWDataPreparationBivariateTask.cpp
+  KWDataPreparationTask.cpp
+  KWDataPreparationUnivariateTask.cpp
+  KWDescriptiveStats.cpp
+  KWDiscretizer.cpp
+  KWDiscretizerMODL.cpp
+  KWDiscretizerMODLLine.cpp
+  KWDiscretizerMODLOptimization.cpp
+  KWDiscretizerSpec.cpp
+  KWDiscretizerUnsupervised.cpp
+  KWFrequencyVector.cpp
+  KWGrouper.cpp
+  KWGrouperMODL.cpp
+  KWGrouperMODLBasic.cpp
+  KWGrouperMODLInternal.cpp
+  KWGrouperMODLOptimization.cpp
+  KWGrouperSpec.cpp
+  KWLearningErrorManager.cpp
+  KWLearningReport.cpp
+  KWLearningSpec.cpp
+  KWPreprocessingSpec.cpp
+  KWProbabilityTable.cpp
+  KWQuantileBuilder.cpp
+  KWStat.cpp
+  KWStatisticalEvaluation.cpp
+  KWTupleTable.cpp
+  KWTupleTableCompareFunctions.cpp
+  KWTupleTableLoader.cpp
+  KWUnivariatePartitionCost.cpp)
 set_khiops_options(KWDataPreparation)
-
 target_include_directories(KWDataPreparation PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(KWDataPreparation PUBLIC KWDataUtils)

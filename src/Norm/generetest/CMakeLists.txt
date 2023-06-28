@@ -1,5 +1,3 @@
-file(GLOB cppfiles ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-
-add_executable(generetest ${cppfiles})
+add_executable(generetest Sample.cpp SampleArrayView.cpp SampleView.cpp generetest.cpp)
 set_khiops_options(generetest)
 target_link_libraries(generetest PUBLIC base)

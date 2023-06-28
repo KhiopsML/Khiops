@@ -3,7 +3,6 @@ project(Norm LANGUAGES CXX)
 add_subdirectory(base)
 add_subdirectory(khiopsdriver_file_null)
 add_subdirectory(genere)
-
 if(FULL)
   add_subdirectory(basetest)
   add_subdirectory(generetest)
@@ -35,5 +34,4 @@ if(BUILD_JARS)
     norm_jar
     DESTINATION usr/share/khiops
     COMPONENT KHIOPS)
-
 endif()

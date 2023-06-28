@@ -1,7 +1,16 @@
-file(GLOB cppfiles ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-
 # Create target
-add_library(PLMPI STATIC ${cppfiles})
+add_library(
+  PLMPI STATIC
+  PLMPIFileServerSlave.cpp
+  PLMPIMaster.cpp
+  PLMPIMessageManager.cpp
+  PLMPIMsgContext.cpp
+  PLMPISlave.cpp
+  PLMPISlaveLauncher.cpp
+  PLMPISlaveProgressionManager.cpp
+  PLMPISystemFileDriverRemote.cpp
+  PLMPITaskDriver.cpp
+  PLMPITracer.cpp)
 
 # Set common build options
 set_khiops_options(PLMPI)
