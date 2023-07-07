@@ -10,6 +10,10 @@ int main(int argc, char** argv)
 
 	// MemSetAllocIndexExit(1290133);
 
+	// Pour desactiver l'interception du signal "segmentation fault", pour permettre au debugger d'identifier le
+	// probleme
+	debug(signal(SIGSEGV, NULL));
+
 	// Lancement du projet
 	learningProject.Start(argc, argv);
 
