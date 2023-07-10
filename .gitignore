@@ -20,7 +20,9 @@ LearningTest/*/*/*/results/
 LearningTest/*/*/*/results.ref/time.log
 
 # LearningTest 
-results/
-__pycache__/
+test/LearningTest/*/*/*/results
 comparisonResults.log
+
+# python
+__pycache__/
 
