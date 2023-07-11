@@ -5,14 +5,14 @@ add_executable(MODL_Coclustering${MPI_SUFFIX} ${cppfiles})
 
 set_khiops_options(MODL_Coclustering${MPI_SUFFIX})
 
-target_link_libraries(MODL_Coclustering${MPI_SUFFIX} PUBLIC KWLearningProblem DTForest KMDRRuleLibrary)
+target_link_libraries(MODL_Coclustering${MPI_SUFFIX} PUBLIC KMDRRuleLibrary KWLearningProblem)
 
 if(MSVC)
   target_link_options(MODL_Coclustering${MPI_SUFFIX} PUBLIC "/INCREMENTAL")
 endif()
 
 add_library(MODL_Coclustering_SO SHARED ${cppfiles})
-target_link_libraries(MODL_Coclustering_SO PUBLIC KWLearningProblem DTForest KMDRRuleLibrary PLParallelTask)
+target_link_libraries(MODL_Coclustering_SO PUBLIC KMDRRuleLibrary KWLearningProblem)
 set_target_properties(
   MODL_Coclustering_SO
   PROPERTIES PUBLIC_HEADER MODL_Coclustering_dll.h
