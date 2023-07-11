@@ -5,29 +5,6 @@ on:
   push:
     branches: [test-git-clone]
 jobs:
-  test-KNI-deb:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [22.04, 20.04]
-    container:
-      image: ubuntu:${{ matrix.os }}
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-      - name: Checkout KhiopsML/KhiopsNativeInterface-tutorial
-        uses: actions/checkout@v3
-        with:
-          repository: KhiopsML/KhiopsNativeInterface-tutorial
-          path: KhiopsNativeInterface-tutorial
-      - name: test
-        run: |
-          ls
-          ls KhiopsNativeInterface-tutorial
   package-deb:
     runs-on: ubuntu-latest
     defaults:
@@ -110,3 +87,71 @@ jobs:
           khiops_coclustering -v
       - name: Test Khiops / Khiops Coclustering
         uses: ./.github/actions/test-khiops
+  test-KNI-deb:
+    needs: package-deb
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu22.04, ubuntu20.04]
+    container:
+      image: ghcr.io/khiopsml/khiops/${{ matrix.os }}:latest
+    steps:
+      - name: Set environment variables
+        run: |
+          source /etc/os-release 
+          echo "ID=$ID" >> "$GITHUB_ENV"
+          echo "VERSION_CODENAME=$VERSION_CODENAME" >> "$GITHUB_ENV"
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.ID }}-${{ env.VERSION_CODENAME }}
+          path: artifacts
+      - name: Install KNI
+        run: |
+          apt-get update
+          dpkg -i ./artifacts/kni* || true
+          apt-get -f install -y
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          path: khiops
+      - name: Checkout KhiopsML/KhiopsNativeInterface-tutorial
+        uses: actions/checkout@v3
+        with:
+          repository: KhiopsML/KhiopsNativeInterface-tutorial
+          path: KhiopsNativeInterface-tutorial
+      - name: Test with C
+        run: |-
+          cd KhiopsNativeInterface-tutorial/cpp
+          gcc -o KNIRecodeFile KNIRecodeFile.c -lKhiopsNativeInterface -I ../../khiops/src/Learning/KhiopsNativeInterface/ -ldl
+          gcc -o KNIRecodeMTFiles KNIRecodeMTFiles.c -lKhiopsNativeInterface -ldl
+          ./KNIRecodeFile ../data/ModelingIris.kdic SNB_Iris ../data/Iris.txt R_Iris.txt
+          if [ ! -f R_Iris.txt ] ;
+          then
+            echo "::error::R_Iris.txt is missing"
+            false
+          fi
+          if diff -q R_Iris.txt ../../khiops/packaging/common/KNI/PackageRef/TestRef/R_Iris.txt > /dev/null ; 
+          then
+            echo "Mono table recodage is OK"
+          else
+          echo "::error::Recodage issue with Iris.txt"
+            false
+          fi
+          ./KNIRecodeMTFiles -d ../data/ModelingSpliceJunction.kdic SNB_SpliceJunction -i ../data/SpliceJunction.txt 1 -s DNA  ../data/SpliceJunctionDNA.txt 1 -o R_SpliceJunction.txt
+          if [ ! -f R_SpliceJunction.txt ] ;
+          then
+            echo "::error::R_SpliceJunction.txt is missing"
+            false
+          fi
+          if diff -q R_SpliceJunction.txt ../../khiops/packaging/common/KNI/PackageRef/TestRef/R_SpliceJunction.txt > /dev/null ; 
+          then
+            echo "Multi table recodage is OK"
+          else
+            echo "::error::Recodage issue with SpliceJunction.txt"
+            false
+          fi
