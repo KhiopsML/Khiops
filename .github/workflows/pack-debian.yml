@@ -2,7 +2,32 @@
 name: Create Debian package
 on:
   workflow_dispatch:
+  push:
+    branches: [test-git-clone]
 jobs:
+  test-KNI-deb:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [22.04, 20.04]
+    container:
+      image: ubuntu:${{ matrix.os }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+      - name: Checkout KhiopsML/KhiopsNativeInterface-tutorial
+        uses: actions/checkout@v3
+        with:
+          repository: KhiopsML/KhiopsNativeInterface-tutorial
+          path: KhiopsNativeInterface-tutorial
+      - name: test
+        run: |
+          ls
+          ls KhiopsNativeInterface-tutorial
   package-deb:
     runs-on: ubuntu-latest
     defaults:
@@ -38,9 +63,10 @@ jobs:
         with:
           name: ${{ env.ID }}-${{ env.VERSION_CODENAME }}
           path: build/packages/*.deb
+
   # Test packages on a brand new runner: we want to check the installation process (with the dependencies installation)
   # and the Khiops execution on a simple dataset
-  test-deb:
+  test-Khiops-deb:
     needs: package-deb
     runs-on: ubuntu-latest
     defaults:
