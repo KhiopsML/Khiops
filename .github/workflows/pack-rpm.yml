@@ -2,8 +2,6 @@
 name: Create RPM package
 on:
   workflow_dispatch:
-  push:
-    branches: [47-improve-and-test-kni-packages]
 jobs:
   package-rpm:
     runs-on: ubuntu-latest

@@ -2,8 +2,6 @@
 name: Create Debian package
 on:
   workflow_dispatch:
-  push:
-    branches: [47-improve-and-test-kni-packages]
 jobs:
   package-deb:
     runs-on: ubuntu-latest
