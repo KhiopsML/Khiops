@@ -8,6 +8,11 @@ int main(int argc, char** argv)
 {
 	CCLearningProject learningProject;
 
+	// Debogage sous Windows Visual C++ 2022 (bug https://github.com/microsoft/vscode-cpptools/issues/8084)
+	// Choix en dur du repertoire de lancement (a commenter apres fin du debug)
+	// ALString sUserRootPath = "D:/Users/miib6422/Documents/boullema/LearningTest/TestCoclustering/";
+	// _chdir(sUserRootPath + "y_CoclusteringIV_Standard/IrisLight");
+
 	// MemSetAllocIndexExit(1290133);
 
 	// Pour desactiver l'interception du signal "segmentation fault", pour permettre au debugger d'identifier le

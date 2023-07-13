@@ -8,6 +8,11 @@ int main(int argc, char** argv)
 {
 	MDKhiopsLearningProject learningProject;
 
+	// Debogage sous Windows Visual C++ 2022 (bug https://github.com/microsoft/vscode-cpptools/issues/8084)
+	// Choix en dur du repertoire de lancement (a commenter apres fin du debug)
+	// ALString sUserRootPath = "D:/Users/miib6422/Documents/boullema/LearningTest/TestKhiops/";
+	// _chdir(sUserRootPath  + "z_Work/AllReportsTiny");
+
 	// Parametrage des logs memoires depuis les variables d'environnement, pris en compte dans KWLearningProject
 	//   KhiopsMemStatsLogFileName, KhiopsMemStatsLogFrequency, KhiopsMemStatsLogToCollect
 	// On ne tente d'ouvrir le fichier que si ces trois variables sont presentes et valides
